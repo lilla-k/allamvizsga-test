@@ -22,7 +22,7 @@ useEffect(()=>{
 }, [])
 
 const onSubscribed = () => {
-  setTimeout(()=>showSubscription(false), 5000);
+  setTimeout(()=>setShowSubscription(false), 5000);
 }
 
 
