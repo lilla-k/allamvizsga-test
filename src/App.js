@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+
+import LoadingMask from "./components/LoadingMask";
+import Character from "./components/Character";
 
 function App() {
+
+  const [series, setSeries] = useState([]);
+
+const loadSeries = async() => {
+  const response = await fetch("https://demoapi.com/api/series/howimetyourmother");
+  const series = await response.json();
+  setTimeout(setSeries(series), 5000);
+  console.log(series);
+}
+
+useEffect(()=>{
+  loadSeries();
+}, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Series Api</h1>
+      {series.length===0 && <LoadingMask/>}
+      {series.length>0 && series.map((s) =>(
+        <Character
+          key={s.name}
+          name={s.name}
+          details={s.details}
+        />
+
+      )
+      )}  
     </div>
   );
 }
