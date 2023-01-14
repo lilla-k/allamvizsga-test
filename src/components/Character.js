@@ -1,8 +1,9 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import { useState } from 'react';
 
-const Character = ({name}) => {
+import Button from '@mui/material/Button';
+
+const Character = ({name, details}) => {
 
     const [clicked, setClicked] = useState(false);
 
@@ -13,6 +14,7 @@ const Character = ({name}) => {
         variant="contained"
         onClick={() => setClicked(!clicked)}
         >{clicked?"Show less": "Show more"}</Button>
+        {clicked && <div>{details}</div>}
     </div>
     )
     
